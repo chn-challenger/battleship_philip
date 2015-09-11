@@ -7,53 +7,24 @@ class Game
     @player1_name = player1_name
     @player2_name = player2_name
     @board_size = board_size
-    @boards = {}
-    @boards[@player1_name] = Board.new(board_size,player1_name)
-    @boards[@player2_name] = Board.new(board_size,player2_name)
-    @ships_player1 = []
+    @boards = []#[Board.new(board_size, player1_name), Board.new(board_size, player2_name)]
+    @ships = []
     array_of_ship_sizes.each do |ship_size|
-        @ships_player1 << Ship.new(ship_size)
-    end
-    @ships_player2 = []
-    array_of_ship_sizes.each do |ship_size|
-        @ships_player2 << Ship.new(ship_size)
+        @ships << Ship.new(ship_size)
     end
   end
 
   def run
-    setup_board(@boards[@player1_name], @player1_name, @ships_player1)
-    puts 'Press any key to end deployment, then please ask your opponent to take the hotseat and deploy ships.  '
-    gets
-    space_lines(3000)
-    setup_board(@boards[@player2_name], @player2_name, @ships_player2)
-    puts 'Press any key to end deployment, then please ask your opponent to take the hotseat and start the game!  '
-    gets
-    space_lines(3000)
-    # p @boards
-    while true
-      player_turn(@boards[@player1_name],@boards[@player2_name], @player1_name)
-      player2_lost = @boards[@player2_name].loose?
-      if player2_lost
-          @boards[@player2_name].show_opponent_board
-          space_lines(2)
-          puts 'Congratulations '+ @player1_name + '!!!! You have won!!!' 
-          space_lines(2)
-          puts 'Press any key to end game'
-          gets
-          return nil
-      end
-      player_turn(@boards[@player2_name],@boards[@player1_name], @player2_name)
-      player1_lost = @boards[@player1_name].loose?
-      if player1_lost
-          @boards[@player1_name].show_opponent_board
-          space_lines(2)
-          puts 'Congratulations '+ @player2_name + '!!!! You have won!!!' 
-          space_lines(2)
-          puts 'Press any key to end game'
-          gets
-          return nil
-      end
-    end
+    setup_board(@board_size, @player1_name, @ships)
+
+    @boards[0].show_my_board
+
+    setup_board(@board_size, @player2_name, @ships)
+
+    @boards[1].show_my_board
+
+      player_turn(@boards[0],@boards[1], @player1_name)
+      # player_turn(@boards[1],@boards[0], @player2_name)
       # player_turn(@boards[0],@boards[1], @player1_name)
       # player_turn(@boards[1],@boards[0], @player2_name)
       # player_turn(@board[0],@board[1], @player1_name)
@@ -91,7 +62,8 @@ class Game
   end
 
 
-  def setup_board(board, player_name, ships)
+  def setup_board(board_size, player_name, ships)
+    board = Board.new(board_size, player_name)
     title_lines(player_name)
     space_lines(2)
     ship_placement_instructions(player_name)
@@ -105,8 +77,7 @@ class Game
       board.show_my_board
       space_lines(2)
     end
-    puts 'End of ship deplyment'
-    space_lines(2)
+    @boards << board
     return nil
   end
 
@@ -197,7 +168,7 @@ end
 # ships = [Ship.new(3),Ship.new(2),Ship.new(3)]
 # # game2.setup_board(6,'Joe',ships)
 
-game1 = Game.new(7, 'Joe', 'Lulu', [2])
+game1 = Game.new(7, 'Joe', 'Lulu', [3])
 game1.run
 
 # a = '2,3'

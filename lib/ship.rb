@@ -25,4 +25,7 @@ class Ship
   end 
 end
 
+# p ship1 = Ship.new(4)
+
+
 

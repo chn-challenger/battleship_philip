@@ -32,17 +32,17 @@ describe Board do
     end
   end
 
-  describe '#outside?' do
-    it 'raise error when asked to place a ship outside of grid range' do
-      board = Board.new(6)
-      ship1 = double(:ship_object)
-      allow(ship1).to receive(:size).and_return(3)
-      expect(board.outside?(ship1,4,2,'south')).to eql(true)
-      expect(board.outside?(ship1,1,2,'north')).to eql(true)
-      expect(board.outside?(ship1,4,1,'west')).to eql(true)
-      expect(board.outside?(ship1,4,4,'east')).to eql(true)
-    end
-  end
+  # describe '#outside?' do
+  #   it 'raise error when asked to place a ship outside of grid range' do
+  #     board = Board.new(6)
+  #     ship1 = double(:ship_object)
+  #     allow(ship1).to receive(:size).and_return(3)
+  #     expect(board.outside?(ship1,4,2,'south')).to eql(true)
+  #     expect(board.outside?(ship1,1,2,'north')).to eql(true)
+  #     expect(board.outside?(ship1,4,1,'west')).to eql(true)
+  #     expect(board.outside?(ship1,4,4,'east')).to eql(true)
+  #   end
+  # end
 
   describe '#place_ship' do
     it 'appends a ship to the ships array on the board' do
@@ -70,21 +70,21 @@ describe Board do
       expect(board1.ship_coords).to eql([[1,1], [1,2], [2,3], [2,4]])
     end
 
-    it "should know when ships overlap" do
-      ship1 = double(:ship1)
-      ship2 = double(:ship2)
-      ship3 = double(:ship3)
-      allow(ship3).to receive(:size).and_return(3)
-      allow(ship1).to receive(:body).and_return([{:grid_coords => [1,1]},{:grid_coords => [1,2]}])
-      allow(ship2).to receive(:body).and_return([{:grid_coords => [2,3]},{:grid_coords => [2,4]}])
-      class Board
-        attr_accessor :ships
-      end
-      board1 = Board.new
-      board1.ships << ship1
-      board1.ships << ship2
-      expect(board1.overlap?(ship3,0,1,'south')).to eql(true)
-    end
+    # it "should know when ships overlap" do
+    #   ship1 = double(:ship1)
+    #   ship2 = double(:ship2)
+    #   ship3 = double(:ship3)
+    #   allow(ship3).to receive(:size).and_return(3)
+    #   allow(ship1).to receive(:body).and_return([{:grid_coords => [1,1]},{:grid_coords => [1,2]}])
+    #   allow(ship2).to receive(:body).and_return([{:grid_coords => [2,3]},{:grid_coords => [2,4]}])
+    #   class Board
+    #     attr_accessor :ships
+    #   end
+    #   board1 = Board.new
+    #   board1.ships << ship1
+    #   board1.ships << ship2
+    #   expect(board1.overlap?(ship3,0,1,'south')).to eql(true)
+    # end
   end
 
   describe '#fire_missle' do
