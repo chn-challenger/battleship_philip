@@ -77,6 +77,9 @@ class Game
     puts 'Player  ' + my_name + '  Please enter your position to fire at opponents ships in "x,y" format.'
     puts ''
     user_input = gets.chomp
+
+    #neeed sanitize!!!!!!!!
+
     user_input = user_input.split(',')
     user_input = [user_input[0].to_i,user_input[1].to_i]
     opponent_board.fire_missile(user_input[0],user_input[1])
@@ -109,8 +112,6 @@ class Game
     space_lines(2)
     return nil
   end
-
-
 
 
   def title_lines(name)
@@ -152,18 +153,6 @@ class Game
     end
     return nil
   end
-    # while true
-    #   user_input = gets.chomp
-    #   result = sanitize_user_position(user_input)
-    #   if result != 'try again'
-    #     user_input = result
-    #     break
-    #   end
-    #   puts ''
-    #   puts 'Invalid position, try again'
-    #   puts ''
-    # end
-
 
   def space_lines(n)
     n.times{puts ''}
@@ -197,7 +186,7 @@ end
 # ships = [Ship.new(3),Ship.new(2),Ship.new(3)]
 # # game2.setup_board(6,'Joe',ships)
 
-game1 = Game.new(7, 'Joe', 'Lulu', [2])
+game1 = Game.new(6, 'Joe', 'Lulu', [2,3])
 game1.run
 
 # a = '2,3'

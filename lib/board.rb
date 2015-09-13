@@ -130,7 +130,7 @@ class Board
         elsif @misses.include?(current_coord)
           print 'Miss       '
         elsif ship_not_hit.include?(current_coord)
-          print 'Ship-part  '
+          print 'Ship       '
         elsif @ocean.include?(current_coord)
           print 'Ocean      '
         end
@@ -175,7 +175,7 @@ end
 
 
 def scenario1
-  board = Board.new(4)
+  board = Board.new(9)
   ship1 = Ship.new(3)
   ship2 = Ship.new(2)
   board.place_ship(ship1,0,1,'south')
@@ -190,9 +190,10 @@ def scenario1
   p board.ship_coords - board.hits
   p board.ocean
   board.show_my_board
- puts ''
-  puts ''
-  board.show_opponent_board
+  # puts ''
+  # puts ''
+  # board.show_opponent_board
 
 end
 
+scenario1
